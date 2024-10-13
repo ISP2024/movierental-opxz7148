@@ -34,6 +34,19 @@ class RentalTest(unittest.TestCase):
         rental = Rental(self.regular_movie, 4)
         self.assertEqual(rental.get_price(), 5.0)
         
-    @unittest.skip("add this test of rental points when you add it to Rental")
     def test_rental_points(self):
-        self.fail("add this test of frequent renter points")
+        
+        rental = Rental(self.new_movie, 1)
+        self.assertEqual(rental.rental_points(), 1)
+        rental = Rental(self.new_movie, 3)
+        self.assertEqual(rental.rental_points(), 3)
+                
+        rental = Rental(self.regular_movie, 1)
+        self.assertEqual(rental.rental_points(), 1)
+        rental = Rental(self.regular_movie, 3)
+        self.assertEqual(rental.rental_points(), 1)
+        
+        rental = Rental(self.childrens_movie, 1)
+        self.assertEqual(rental.rental_points(), 1)
+        rental = Rental(self.childrens_movie, 3)
+        self.assertEqual(rental.rental_points(), 1)
