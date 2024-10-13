@@ -48,7 +48,7 @@ class CustomerTest(unittest.TestCase):
         self.c.add_rental(r2)
         self.c.add_rental(r3)
         
-        self.assertEqual(self.c.get_total_charge(), sum([r1.get_price(), r2.get_price(), r3.get_price()]))
+        self.assertEqual(self.c.get_total_price(), sum([r1.get_price(), r2.get_price(), r3.get_price()]))
         
     def test_total_points(self):
         
