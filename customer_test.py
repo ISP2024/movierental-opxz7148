@@ -1,3 +1,4 @@
+from functools import reduce
 import re
 import unittest
 from customer import Customer
@@ -36,3 +37,28 @@ class CustomerTest(unittest.TestCase):
         matches = re.match(pattern, stmt.replace('\n',''), flags=re.DOTALL)
         self.assertIsNotNone(matches)
         self.assertEqual("12.00", matches[1])
+        
+    def test_total_charge(self):
+        
+        r1 = Rental(self.regular_movie, 3)
+        r2 = Rental(self.new_movie, 4)
+        r3 = Rental(self.childrens_movie, 2)
+
+        self.c.add_rental(r1)
+        self.c.add_rental(r2)
+        self.c.add_rental(r3)
+        
+        self.assertEqual(self.c.get_total_charge(), sum([r1.get_price(), r2.get_price(), r3.get_price()]))
+        
+    def test_total_points(self):
+        
+        r1 = Rental(self.regular_movie, 3)
+        r2 = Rental(self.new_movie, 4)
+        r3 = Rental(self.childrens_movie, 2)
+
+        self.c.add_rental(r1)
+        self.c.add_rental(r2)
+        self.c.add_rental(r3)
+        
+        self.assertEqual(self.c.get_total_points(), sum([r1.rental_points(), r2.rental_points(), r3.rental_points()]))
+
