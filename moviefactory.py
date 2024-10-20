@@ -24,13 +24,16 @@ class MovieCatalog:
             for n, m in enumerate(movies):
                 
                 # Ignore blank line
-                if m == "":
+                if m == "\n":
+                    print("blankline at", n)
                     continue
+                
                 # Ignore comment
                 if m[0] == '#':
                     continue
                 
                 movie_data = m.split(',')
+                
                 # Data validation
                 if len(movie_data) != 4:
                     logger = logging.getLogger()
@@ -41,7 +44,7 @@ class MovieCatalog:
                 movie_data = movie_data[1:]
                 
                 # Turn genre to list
-                movie_data[-1] = movie_data[-1].split('|')
+                movie_data[-1] = movie_data[-1].strip().split('|')
                 
                 # Convert year to int
                 try: 

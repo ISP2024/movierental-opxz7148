@@ -4,6 +4,7 @@ from customer import Customer
 from rental import Rental
 from movie import Movie
 from pricing import *
+from moviefactory import MovieCatalog
 
 
 class CustomerTest(unittest.TestCase): 
@@ -15,10 +16,13 @@ class CustomerTest(unittest.TestCase):
         c = a customer
         movies = list of some movies
         """
+        
+        catalog = MovieCatalog()
+        
         self.c = Customer("Movie Mogul")
-        self.new_movie = Movie("Mulan", 2020, ['Live action'])
-        self.regular_movie = Movie("CitizenFour", 2014, [])
-        self.childrens_movie = Movie("Frozen", 2014, ['Animation'])
+        self.new_movie = catalog.get_movie("Dune: Part Two")
+        self.regular_movie = catalog.get_movie("Everything Everywhere All at Once")
+        self.childrens_movie = catalog.get_movie("Mulan")
         
     @unittest.skip("No convenient way to test")
     def test_billing():
@@ -33,7 +37,7 @@ class CustomerTest(unittest.TestCase):
         self.assertIsNotNone(matches)
         self.assertEqual("0.00", matches[1])
         # add a rental
-        self.c.add_rental(Rental(self.new_movie, 4, Rental.NEW_RELEASE)) # days
+        self.c.add_rental(Rental(self.new_movie, 4)) # days
         stmt = self.c.statement()
         matches = re.match(pattern, stmt.replace('\n',''), flags=re.DOTALL)
         self.assertIsNotNone(matches)
@@ -41,9 +45,9 @@ class CustomerTest(unittest.TestCase):
         
     def test_total_charge(self):
         
-        r1 = Rental(self.regular_movie, 3, Rental.REGULAR)
-        r2 = Rental(self.new_movie, 4, Rental.NEW_RELEASE)
-        r3 = Rental(self.childrens_movie, 2, Rental.CHILDRENS)
+        r1 = Rental(self.regular_movie, 3)
+        r2 = Rental(self.new_movie, 4)
+        r3 = Rental(self.childrens_movie, 2)
 
         self.c.add_rental(r1)
         self.c.add_rental(r2)
@@ -53,9 +57,9 @@ class CustomerTest(unittest.TestCase):
         
     def test_total_points(self):
         
-        r1 = Rental(self.regular_movie, 3, Rental.REGULAR)
-        r2 = Rental(self.new_movie, 4, Rental.NEW_RELEASE)
-        r3 = Rental(self.childrens_movie, 2, Rental.CHILDRENS)
+        r1 = Rental(self.regular_movie, 3)
+        r2 = Rental(self.new_movie, 4)
+        r3 = Rental(self.childrens_movie, 2)
 
         self.c.add_rental(r1)
         self.c.add_rental(r2)

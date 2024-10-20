@@ -1,4 +1,3 @@
-from tkinter import N
 from movie import Movie
 from pricing import *
 from datetime import datetime
@@ -28,13 +27,13 @@ class Rental:
         
         return cls.REGULAR
     
-    def __init__(self, movie, days_rented, price_code): 
+    def __init__(self, movie, days_rented): 
         """Initialize a new movie rental object for
            a movie with known rental period (daysRented).
         """
         self.movie = movie
         self.days_rented = days_rented
-        self.price_code = price_code
+        self.price_code = Rental.price_code_for_movie(self.movie)
      
     def get_price(self):
         return self.price_code.get_price(self.days_rented)

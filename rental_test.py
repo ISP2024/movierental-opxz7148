@@ -1,51 +1,56 @@
+from gettext import Catalog
+from re import S
 import unittest
 from customer import Customer
 from rental import Rental
 from movie import Movie
+from moviefactory import MovieCatalog
 
 
 class RentalTest(unittest.TestCase):
 
     def setUp(self):
-        self.new_movie = Movie("Dune: Part Two", 2023, ['Scifi', 'Adventure'])
-        self.regular_movie = Movie("Air", 2023, ['Documentary', 'Sport'])
-        self.childrens_movie = Movie("Frozen", 2014, ['Animation'])
+        
+        self.catalog = MovieCatalog()
+        self.new_movie = self.catalog.get_movie("Civil War")
+        self.regular_movie = self.catalog.get_movie("Arrival")
+        self.childrens_movie = self.catalog.get_movie("Weathering With You")
 
     def test_movie_attributes(self):
         """trivial test to catch refactoring errors or change in API of Movie"""
-        m = Movie("Air", 2023, ['Documentary', 'Sport'])
-        self.assertEqual("Air(2023)", str(m))
+        self.assertEqual("Arrival(2016)", str(self.regular_movie))
 
     def test_rental_price(self):
 
-        rental = Rental(self.new_movie, 1, Rental.NEW_RELEASE)
+        rental = Rental(self.new_movie, 1)
         self.assertEqual(rental.get_price(), 3.0)
-        rental = Rental(self.new_movie, 5, Rental.NEW_RELEASE)
+        rental = Rental(self.new_movie, 5)
         self.assertEqual(rental.get_price(), 15.0)
 
-        rental = Rental(self.childrens_movie, 3, Rental.CHILDRENS)
+        rental = Rental(self.childrens_movie, 3)
+        print(rental.movie.genre)
         self.assertEqual(rental.get_price(), 1.5)
-        rental = Rental(self.childrens_movie, 4, Rental.CHILDRENS)
+        rental = Rental(self.childrens_movie, 4)
         self.assertEqual(rental.get_price(), 3.0)
         
-        rental = Rental(self.regular_movie, 2, Rental.REGULAR)
+        rental = Rental(self.regular_movie, 2)
         self.assertEqual(rental.get_price(), 2.0)
-        rental = Rental(self.regular_movie, 4, Rental.REGULAR)
+        rental = Rental(self.regular_movie, 4)
         self.assertEqual(rental.get_price(), 5.0)
         
     def test_rental_points(self):
         
-        rental = Rental(self.new_movie, 1, Rental.NEW_RELEASE)
+        rental = Rental(self.new_movie, 1)
         self.assertEqual(rental.rental_points(), 1)
-        rental = Rental(self.new_movie, 3, Rental.NEW_RELEASE)
+        rental = Rental(self.new_movie, 3)
         self.assertEqual(rental.rental_points(), 3)
                 
-        rental = Rental(self.regular_movie, 1, Rental.REGULAR)
+        rental = Rental(self.regular_movie, 1)
         self.assertEqual(rental.rental_points(), 1)
-        rental = Rental(self.regular_movie, 3, Rental.REGULAR)
+        rental = Rental(self.regular_movie, 3)
         self.assertEqual(rental.rental_points(), 1)
         
-        rental = Rental(self.childrens_movie, 1, Rental.CHILDRENS)
+        rental = Rental(self.childrens_movie, 1)
         self.assertEqual(rental.rental_points(), 1)
-        rental = Rental(self.childrens_movie, 3, Rental.CHILDRENS)
+        rental = Rental(self.childrens_movie, 3)
         self.assertEqual(rental.rental_points(), 1)
