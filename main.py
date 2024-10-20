@@ -1,9 +1,9 @@
 # Demonstrate the movie rental code.
 # Create a customer with some movies and print a statement.
 
-from movie import Rental
 from rental import Rental
 from customer import Customer
+from moviefactory import MovieCatalog
 
 def make_movies():
     """Some sample movies."""
@@ -13,6 +13,18 @@ def make_movies():
         Rental("Frozen", Rental.CHILDRENS),
         Rental("Bitconned", Rental.NEW_RELEASE),
         Rental("Particle Fever", Rental.REGULAR)
+    ]
+    return movies
+
+def make_movies():
+    """Some sample movies."""
+    catalog = MovieCatalog()
+    movies = [
+        catalog.get_movie("Challengers"),
+        catalog.get_movie("Oppenheimer"),
+        catalog.get_movie("Raya and the Last Dragon"),
+        catalog.get_movie("Bitconned"),
+        catalog.get_movie("Particle Fever"),
     ]
     return movies
 
