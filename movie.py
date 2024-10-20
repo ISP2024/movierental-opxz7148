@@ -9,10 +9,9 @@ class Movie:
     NEW_RELEASE = NewReleasePrice()
     CHILDRENS = ChildrenPrice()
     
-    def __init__(self, title: str, price: Price):
+    def __init__(self, title: str):
         # Initialize a new movie. 
         self.title = title
-        self.price_code = price
         
     def get_title(self):
         return self.title
@@ -20,7 +19,3 @@ class Movie:
     def __str__(self):
         return self.title
     
-    def get_price_code(self):
-        # get the price code
-        return self.price_code
-
