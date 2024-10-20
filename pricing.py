@@ -1,11 +1,13 @@
 from abc import ABC, abstractmethod
+from hmac import new
+from os import name
 
 class Price(ABC):
     
     _instance = None
 
     @classmethod
-    def __new__(cls):
+    def __new__(cls, *args):
         if not cls._instance:
             cls._instance = super(Price, cls).__new__(cls)
         return cls._instance
@@ -48,3 +50,6 @@ class NewReleasePrice(Price):
         # New release movie get 1 point per day
         return days
     
+if __name__ == "__main__":
+    reg = RegularPrice()
+    reg2 = RegularPrice()

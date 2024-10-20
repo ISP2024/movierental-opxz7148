@@ -21,3 +21,10 @@ See [Resources](https://cpske.github.io/ISP/assignment/movierental/movierental-p
 ## Rationale
 2.1 Ans: Inappropriate Intimacy
 2.2 Ans: Strive for loosely coupled objects
+
+5.2 Ans: I choose to put price_code_for_movie inside Rental class because:
+- Low couping: Rental doesn't need to coup data from anywhere else
+- High Cohesion: only Rental that need to invoke price.
+- SRP: Rental is responsible for assign price to each rental.
+- Information Expert: price_code_for_movie required movie and Price and rental already has both.
+

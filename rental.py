@@ -1,4 +1,7 @@
+from tkinter import N
+from movie import Movie
 from pricing import *
+from datetime import datetime
 
 class Rental:
     """
@@ -11,10 +14,19 @@ class Rental:
     For simplicity of this application only days_rented is recorded.
     """
     # The types of movies (price_code). 
-    REGULAR = RegularPrice.__new__()
-    NEW_RELEASE = NewReleasePrice.__new__()
-    CHILDRENS = ChildrenPrice.__new__()
+    REGULAR = RegularPrice()
+    NEW_RELEASE = NewReleasePrice()
+    CHILDRENS = ChildrenPrice()
     
+    @classmethod
+    def price_code_for_movie(cls, movie: Movie):
+        if movie.year == datetime.now().year:
+            return cls.NEW_RELEASE
+        
+        if 'Children' in movie.genre or 'Childrens' in movie.genre:
+            return cls.CHILDRENS
+        
+        return cls.REGULAR
     
     def __init__(self, movie, days_rented, price_code): 
         """Initialize a new movie rental object for

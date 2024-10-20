@@ -4,6 +4,14 @@ import logging
 
 class MovieCatalog:
     
+    _instance = None
+    
+    @classmethod
+    def __new__(cls, *args):
+        if not cls._instance:
+            cls._instance = super(MovieCatalog, cls).__new__(cls)
+        return cls._instance
+    
     def __init__(self, filename: str = 'movie.csv') -> None:
         self.file_name = filename
         self.catalog: List[Movie] = []
