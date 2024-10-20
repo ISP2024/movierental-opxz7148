@@ -11,14 +11,13 @@ class RentalTest(unittest.TestCase):
 
     def setUp(self):
         
-        self.catalog = MovieCatalog()
-        self.new_movie = self.catalog.get_movie("Civil War")
-        self.regular_movie = self.catalog.get_movie("Arrival")
-        self.childrens_movie = self.catalog.get_movie("Weathering With You")
+        self.new_movie = Movie("Mulan", 2024, ['Live action'])
+        self.regular_movie = Movie("CitizenFour", 2014, ['Documentary'])
+        self.childrens_movie = Movie("Frozen", 2014, ['Animation', 'Children'])
 
     def test_movie_attributes(self):
         """trivial test to catch refactoring errors or change in API of Movie"""
-        self.assertEqual("Arrival(2016)", str(self.regular_movie))
+        self.assertEqual("CitizenFour(2014)", str(self.regular_movie))
 
     def test_rental_price(self):
 
