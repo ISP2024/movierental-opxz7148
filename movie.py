@@ -14,12 +14,6 @@ class Movie:
         self.title = title
         self.price_code = price
         
-    def get_price(self, days):
-        return self.price_code.get_price(days)
-    
-    def get_points(self, days):
-        return self.price_code.get_point(days)
-        
     def get_title(self):
         return self.title
     

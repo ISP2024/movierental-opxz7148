@@ -1,6 +1,3 @@
-from movie import Movie
-import logging
-
 class Rental:
     """
     A rental of a movie by customer.
@@ -20,10 +17,10 @@ class Rental:
         self.days_rented = days_rented
      
     def get_price(self):
-        return self.movie.get_price(self.days_rented)
+        return self.movie.price_code.get_price(self.days_rented)
     
     def rental_points(self):
-        return self.movie.get_points(self.days_rented)
+        return self.movie.price_code.get_point(self.days_rented)
 
     def get_movie(self):
         return self.movie
